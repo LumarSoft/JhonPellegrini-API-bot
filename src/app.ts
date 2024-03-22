@@ -38,6 +38,10 @@ const main = async () => {
     })
   );
 
+  provider.http?.server.get("/funciona", (req, res) => {
+    res.end("Funciona");
+  });
+
   await createBot({
     flow: createFlow([flowBienvenida]),
     database: new MemoryDB(),
