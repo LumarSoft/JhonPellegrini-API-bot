@@ -12,6 +12,11 @@ const flowBienvenida = addKeyword("hola").addAnswer(
   "Hola, ¿en qué puedo ayudarte?"
 );
 
+interface Contact {
+  Nombre: string;
+  Telefono: string;
+}
+
 const main = async () => {
   const provider = createProvider(BaileysProvider);
 
@@ -28,7 +33,7 @@ const main = async () => {
     "/send-message",
     handleCtx(async (bot, req, res) => {
       const body = req.body;
-      body.forEach(async (contact) => {
+      body.forEach(async (contact: Contact) => {
         const name = contact.Nombre;
         const phone = contact.Telefono;
         const message = `Hola ${name}, este es un mensaje mapeado desde el excel`;
