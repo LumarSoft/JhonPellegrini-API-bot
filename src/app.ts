@@ -37,7 +37,11 @@ const main = async () => {
         const name = contact.Nombre;
         const phone = contact.Telefono;
         const message = `Hola ${name}, este es un mensaje mapeado desde el excel`;
-        await bot.sendMessage(phone, message, {});
+        try {
+          await bot.sendMessage(phone, message, {});
+        } catch (error) {
+          console.error(`Error al enviar mensaje a ${phone}:`, error);
+        }
       });
       res.end("Mensaje enviado");
     })
@@ -45,6 +49,11 @@ const main = async () => {
 
   provider.http?.server.get("/funciona", (req, res) => {
     res.end("Funciona");
+  });
+
+  // para cuando se desconecta
+  provider.on("disconnect", () => {
+    console.log("Se desconectó el bot");
   });
 
   await createBot({
