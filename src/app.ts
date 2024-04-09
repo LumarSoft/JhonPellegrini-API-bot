@@ -33,6 +33,7 @@ const main = async () => {
     "/send-message",
     handleCtx(async (bot, req, res) => {
       const contacts = req.body;
+      console.log("contacts", contacts);
       try {
         const promises = contacts.map(async (contact: Contact) => {
           const name = contact.Nombre;
