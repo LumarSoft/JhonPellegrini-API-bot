@@ -32,18 +32,19 @@ const main = async () => {
   provider.http?.server.post(
     "/send-message",
     handleCtx(async (bot, req, res) => {
-      const body = req.body;
-      body.forEach(async (contact: Contact) => {
-        const name = contact.Nombre;
-        const phone = contact.Telefono;
-        const message = `Hola ${name}, este es un mensaje mapeado desde el excel`;
-        try {
+      const contacts = req.body;
+      try {
+        const promises = contacts.map(async (contact: Contact) => {
+          const name = contact.Nombre;
+          const phone = contact.Telefono;
+          const message = `Hola ${name}, este es un mensaje mapeado desde el excel`;
           await bot.sendMessage(phone, message, {});
-        } catch (error) {
-          console.error(`Error al enviar mensaje a ${phone}:`, error);
-        }
-      });
-      res.end("Mensaje enviado");
+        });
+        await Promise.all(promises);
+      } catch (error) {
+        console.error("Error al enviar mensajes:", error);
+      }
+      res.end("Mensajes enviados");
     })
   );
 
