@@ -1,6 +1,10 @@
 import { addKeyword } from "@bot-whatsapp/bot";
 import { flowBienvenida } from "./flowBienvenida";
-import { flowCotizacion } from "./noClientes/flowCotizacion";
+
+const flowSiCotizacion = addKeyword("A")
+  .addAnswer("Por favor, deje sus datos, localidad y descripcion del bien")
+  .addAnswer("Gracias por su consulta, en breve nos comunicaremos con usted")
+  .addAnswer("Necesita algo mas?", null, null, [flowNoCliente]);
 
 export const flowNoCliente = addKeyword("no")
   .addAnswer("Que desea?")
@@ -12,5 +16,5 @@ export const flowNoCliente = addKeyword("no")
     ],
     null,
     null,
-    [flowCotizacion, flowBienvenida]
+    [flowSiCotizacion,flowBienvenida]
   );
