@@ -3,19 +3,11 @@ import {
   createFlow,
   MemoryDB,
   createProvider,
-  addKeyword,
 } from "@bot-whatsapp/bot";
 import { BaileysProvider, handleCtx } from "@bot-whatsapp/provider-baileys";
 import cors from "cors";
-
-const flowBienvenida = addKeyword("hola").addAnswer(
-  "Hola, ¿en qué puedo ayudarte?"
-);
-
-interface Contact {
-  Nombre: string;
-  Telefono: string;
-}
+import { Contact } from "./interfaces/contact";
+import { flowBienvenida } from "./flows/flowBienvenida";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
