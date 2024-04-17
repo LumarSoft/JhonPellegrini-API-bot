@@ -1,23 +1,38 @@
-import { addKeyword } from "@bot-whatsapp/bot";
+import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
+import { flowCotizacionCliente } from "./clientes/flowCotizacion";
 import { flowBienvenida } from "./flowBienvenida";
-import { flowDocumentacion } from "./clientes/flowDocumentacion";
-import { flowSiniestro } from "./clientes/flowSiniestro";
 import { flowGrua } from "./clientes/flowGrua";
-import { flowCotizacion } from "./clientes/flowCotizacion";
+import { flowSiniestro } from "./clientes/flowSiniestro";
+import { flowDocumentacion } from "./clientes/flowDocumentacion";
 
-export const flowSiCliente = addKeyword(["si", "volver"])
-  .addAnswer("Que desea?")
-  .addAnswer(
-    [
-      "Envie en forma de mensaje la letra que aparece al comienzo de la respuesta o incio para volver a comenzar",
-      "👉 A - Solicitud de documentacion",
-      "👉 B - Siniestros",
-      "👉 C - Servicio de grua",
-      "👉 D - Solicitar cotizacion",
-      "👉 E - Otras consultas",
-      "👉 Inicio - Volver al menu principal",
-    ],
-    null,
-    null,
-    [flowDocumentacion, flowSiniestro, flowGrua, flowCotizacion, flowBienvenida]
+export const flowSiCliente = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Que necesita?"])
+  .addAnswer([
+    "👉 1 - Solicitud de documentacion",
+    "👉 2 - Siniestros",
+    "👉 3 - Servicio de grua",
+    "👉 4 - Solicitar cotizacion",
+    "👉 0 - Volver al menu principal",
+  ])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const resp = ctx.body;
+      switch (resp) {
+        case "1":
+          return gotoFlow(flowDocumentacion);
+        case "2":
+          return gotoFlow(flowSiniestro);
+        case "3":
+          return gotoFlow(flowGrua);
+        case "4":
+          return gotoFlow(flowCotizacionCliente);
+        case "0":
+          return gotoFlow(flowBienvenida);
+        default:
+          return fallBack(
+            "❌ Opción no válida, por favor seleccione una opción válida"
+          );
+      }
+    }
   );

@@ -1,9 +1,21 @@
-import { addKeyword } from "@bot-whatsapp/bot";
+import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
-export const flowGrua = addKeyword("C")
+export const flowGrua = addKeyword(EVENTS.ACTION)
   .addAnswer("Si necesita una grua puede llamar al numero 08106660302.")
   .addAnswer("Recordatorio: La cobertura A no posee asistencia de grua")
-  .addAnswer('Escriba "Volver" para volver al menu cliente', null, null, [
-    flowSiCliente,
-  ]);
+  .addAnswer("👉 0 - Volver al menu cliente")
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const option = ctx.body;
+      switch (option) {
+        case "0":
+          return gotoFlow(flowSiCliente);
+        default:
+          return fallBack(
+            "❌ Opción no válida, por favor seleccione una opción válida"
+          );
+      }
+    }
+  );

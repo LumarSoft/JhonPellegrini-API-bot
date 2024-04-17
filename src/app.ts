@@ -7,10 +7,9 @@ import {
 import { BaileysProvider, handleCtx } from "@bot-whatsapp/provider-baileys";
 import cors from "cors";
 import { Contact } from "./interfaces/contact";
-import { flowBienvenida } from "./flow";
-import { welcomeFlow } from "./test/test";
-import option1 from "./test/option1";
-import option2 from "./test/option2";
+import { flowNoCliente } from "./flows/flowNoCliente";
+import { flowSiCliente } from "./flows/flowCliente";
+import { flowBienvenida } from "./flows/flowBienvenida";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -54,7 +53,7 @@ const main = async () => {
   });
 
   await createBot({
-    flow: createFlow([welcomeFlow, option1, option2]),
+    flow: createFlow([flowBienvenida, flowNoCliente]),
     database: new MemoryDB(),
     provider,
   });
