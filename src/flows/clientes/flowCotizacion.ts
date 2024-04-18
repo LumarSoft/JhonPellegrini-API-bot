@@ -1,25 +1,50 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
-const flowCotizarAutomotor = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la cotizacion de automotor",
-]);
+export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui se solicitaria los datos del automotor"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
-const flowCotizarHogar = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la cotizacion de hogar",
-]);
+export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui se solicitaria los datos del hogar"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
-const flowCotizarComercio = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la cotizacion de comercio",
-]);
+export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui se solicitaria los datos del comercio"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
-const flowCotizarAp = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la cotizacion de ap",
-]);
+export const flowCotizarAp = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui se solicitaria los datos del ap"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
-const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la cotizacion de otros riesgos",
-]);
+export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui iria la cotizacion de otros riesgos"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
 export const flowCotizacionCliente = addKeyword(EVENTS.ACTION)
   .addAnswer("Que desea cotizar?")

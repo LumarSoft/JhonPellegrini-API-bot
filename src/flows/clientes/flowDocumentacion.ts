@@ -1,15 +1,29 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
-const flowPoliza = addKeyword(EVENTS.ACTION).addAnswer([
-  "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
-  "y en breve nos comunicaremos con usted",
-]);
+export const flowPoliza = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
+  ])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response && response.length > 0) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+    return endFlow("❌ Debe ingresar un dni o patente válida");
+  });
 
-const flowCuponera = addKeyword(EVENTS.ACTION).addAnswer([
-  "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
-  "y en breve nos comunicaremos con usted",
-]);
+export const flowCuponera = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
+  ])
+  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
+    const response = ctx.body;
+    if (response && response.length > 0) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+    return fallBack("❌ Debe ingresar un dni o patente válida");
+  });
 
 export const flowDocumentacion = addKeyword(EVENTS.ACTION)
   .addAnswer("Que documentacion necesita?")

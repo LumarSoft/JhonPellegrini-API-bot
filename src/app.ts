@@ -7,13 +7,22 @@ import {
 import { BaileysProvider, handleCtx } from "@bot-whatsapp/provider-baileys";
 import cors from "cors";
 import { Contact } from "./interfaces/contact";
-import { flowNoCliente } from "./flows/flowNoCliente";
-import { flowSiCliente } from "./flows/flowCliente";
 import { flowBienvenida } from "./flows/flowBienvenida";
-import { flowCotizacion } from "./flows/noClientes/flowCotizacion";
-import { flowDocumentacion } from "./flows/clientes/flowDocumentacion";
+import { flowCotizacionNoCliente, flowNoCliente } from "./flows/flowNoCliente";
+import { flowSiCliente } from "./flows/flowCliente";
+import {
+  flowCuponera,
+  flowDocumentacion,
+  flowPoliza,
+} from "./flows/clientes/flowDocumentacion";
+import {
+  flowConsultaSiniestro,
+  flowDenunciaSiniestro,
+  flowOtraConsulta,
+  flowSiniestro,
+} from "./flows/clientes/flowSiniestro";
 import { flowGrua } from "./flows/clientes/flowGrua";
-import { flowSiniestro } from "./flows/clientes/flowSiniestro";
+import { flowCotizacionCliente, flowCotizarAp, flowCotizarAutomotor, flowCotizarComercio, flowCotizarHogar, flowCotizarOtrosRiesgos } from "./flows/clientes/flowCotizacion";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -60,11 +69,22 @@ const main = async () => {
     flow: createFlow([
       flowBienvenida,
       flowNoCliente,
+      flowCotizacionNoCliente,
       flowSiCliente,
-      flowCotizacion,
       flowDocumentacion,
-      flowGrua,
+      flowPoliza,
+      flowCuponera,
       flowSiniestro,
+      flowDenunciaSiniestro,
+      flowConsultaSiniestro,
+      flowOtraConsulta,
+      flowGrua,
+      flowCotizacionCliente,
+      flowCotizarAutomotor,
+      flowCotizarHogar,
+      flowCotizarComercio,
+      flowCotizarAp,
+      flowCotizarOtrosRiesgos
     ]),
     database: new MemoryDB(),
     provider,

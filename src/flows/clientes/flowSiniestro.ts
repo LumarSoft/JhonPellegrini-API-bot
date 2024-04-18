@@ -1,17 +1,39 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
-const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la denuncia del siniestro",
-]);
+export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "A continuacion deje la siguiente informacion",
+    "DNI del involucrado, Numero de poliza, Fecha del siniestro, Lugar del siniestro, Descripcion del siniestro",
+  ])
+  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
+    const response = ctx.body;
+    if (response && response.length > 0) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+    return fallBack("❌ Debe ingresar una informacion valida");
+  });
 
-const flowConsultaSiniestro = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria la consulta siniestro",
-]);
+export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "A continuacion deje el numero de siniestro que quiere consultar",
+  ])
+  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
+    const numeroSiniestro = ctx.body;
+    if (numeroSiniestro && numeroSiniestro.length > 0) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+    return fallBack("❌ Debe ingresar un numero de siniestro valido");
+  });
 
-const flowOtraConsulta = addKeyword(EVENTS.ACTION).addAnswer([
-  "Aqui iria otra consulta",
-]);
+export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
+  .addAnswer(["Aqui iria otra consulta"])
+  .addAction({ capture: true }, async (ctx, { endFlow }) => {
+    const response = ctx.body;
+    if (response) {
+      return endFlow("Gracias, en breve nos comunicaremos con usted");
+    }
+  });
 
 export const flowSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer("Usted puede...")

@@ -1,9 +1,18 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowBienvenida } from "./flowBienvenida";
 
-const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION).addAnswer(
-  "Por favor deje sus datos (localidad y descripcion del bien), en breve nos comunicaremos con usted"
-);
+export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "Por favor deje sus datos (localidad y descripcion del bien)",
+    "👉 0 - Cancelar",
+  ])
+  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
+    const response = ctx.body;
+    if (response !== "0" && response.length > 2) {
+      return endFlow("En breve nos comunicaremos con usted");
+    }
+    return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
+  });
 
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer("Nos alegra que este interesado en nosotros")
