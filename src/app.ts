@@ -10,6 +10,10 @@ import { Contact } from "./interfaces/contact";
 import { flowNoCliente } from "./flows/flowNoCliente";
 import { flowSiCliente } from "./flows/flowCliente";
 import { flowBienvenida } from "./flows/flowBienvenida";
+import { flowCotizacion } from "./flows/noClientes/flowCotizacion";
+import { flowDocumentacion } from "./flows/clientes/flowDocumentacion";
+import { flowGrua } from "./flows/clientes/flowGrua";
+import { flowSiniestro } from "./flows/clientes/flowSiniestro";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -53,7 +57,15 @@ const main = async () => {
   });
 
   await createBot({
-    flow: createFlow([flowBienvenida, flowNoCliente]),
+    flow: createFlow([
+      flowBienvenida,
+      flowNoCliente,
+      flowSiCliente,
+      flowCotizacion,
+      flowDocumentacion,
+      flowGrua,
+      flowSiniestro,
+    ]),
     database: new MemoryDB(),
     provider,
   });

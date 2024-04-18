@@ -1,7 +1,7 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
-const flowCotizarAutomor = addKeyword(EVENTS.ACTION).addAnswer([
+const flowCotizarAutomotor = addKeyword(EVENTS.ACTION).addAnswer([
   "Aqui iria la cotizacion de automotor",
 ]);
 
@@ -39,7 +39,7 @@ export const flowCotizacionCliente = addKeyword(EVENTS.ACTION)
       const option = ctx.body;
       switch (option) {
         case "1":
-          return gotoFlow(flowCotizarAutomor);
+          return gotoFlow(flowCotizarAutomotor);
         case "2":
           return gotoFlow(flowCotizarHogar);
         case "3":
