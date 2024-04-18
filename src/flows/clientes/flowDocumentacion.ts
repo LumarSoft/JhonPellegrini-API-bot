@@ -4,26 +4,40 @@ import { flowSiCliente } from "../flowCliente";
 export const flowPoliza = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
+    "👉 0 - Para cancelar",
   ])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response && response.length > 0) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, endFlow, fallBack }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowDocumentacion);
+      }
+      if (response.length > 0) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar un dni o patente válida");
     }
-    return endFlow("❌ Debe ingresar un dni o patente válida");
-  });
+  );
 
 export const flowCuponera = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
+    "👉 0 - Para cancelar",
   ])
-  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
-    const response = ctx.body;
-    if (response && response.length > 0) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowDocumentacion);
+      }
+      if (response !== "0" && response.length > 0) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar un dni o patente válida");
     }
-    return fallBack("❌ Debe ingresar un dni o patente válida");
-  });
+  );
 
 export const flowDocumentacion = addKeyword(EVENTS.ACTION)
   .addAnswer("Que documentacion necesita?")

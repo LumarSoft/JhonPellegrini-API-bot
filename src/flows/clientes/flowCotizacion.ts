@@ -2,49 +2,84 @@ import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 
 export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del automotor"])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAnswer(["Aqui se solicitaria los datos del automotor", "👉 0 - Cancelar"])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, endFlow, fallBack }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowCotizacionCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una informacion valida");
     }
-  });
+  );
 
 export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del hogar"])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAnswer(["Aqui se solicitaria los datos del hogar", "👉 0 - Cancelar"])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, endFlow, fallBack }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowCotizacionCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una informacion valida");
     }
-  });
+  );
 
 export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del comercio"])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAnswer(["Aqui se solicitaria los datos del comercio", "👉 0 - Cancelar"])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowCotizacionCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una informacion valida");
     }
-  });
+  );
 
 export const flowCotizarAp = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del ap"])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAnswer(["Aqui se solicitaria los datos del ap", "👉 0 - Cancelar"])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        gotoFlow(flowCotizacionCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una informacion valida");
     }
-  });
+  );
 
 export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui iria la cotizacion de otros riesgos"])
-  .addAction({ capture: true }, async (ctx, { endFlow }) => {
-    const response = ctx.body;
-    if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+  .addAnswer(["Aqui iria la cotizacion de otros riesgos", "👉 0 - Cancelar"])
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowCotizacionCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("Gracias, en breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una informacion valida");
     }
-  });
+  );
 
 export const flowCotizacionCliente = addKeyword(EVENTS.ACTION)
   .addAnswer("Que desea cotizar?")

@@ -6,13 +6,19 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
     "Por favor deje sus datos (localidad y descripcion del bien)",
     "👉 0 - Cancelar",
   ])
-  .addAction({ capture: true }, async (ctx, { fallBack, endFlow }) => {
-    const response = ctx.body;
-    if (response !== "0" && response.length > 2) {
-      return endFlow("En breve nos comunicaremos con usted");
+  .addAction(
+    { capture: true },
+    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+      const response = ctx.body;
+      if (response === "0") {
+        return gotoFlow(flowNoCliente);
+      }
+      if (response.length > 2) {
+        return endFlow("En breve nos comunicaremos con usted");
+      }
+      return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
     }
-    return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
-  });
+  );
 
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer("Nos alegra que este interesado en nosotros")
