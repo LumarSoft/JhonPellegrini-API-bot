@@ -7,7 +7,7 @@ import {
 import { BaileysProvider, handleCtx } from "@bot-whatsapp/provider-baileys";
 import cors from "cors";
 import { Contact } from "./interfaces/contact";
-import { flowBienvenida } from "./flows/flowBienvenida";
+import { flowBienvenida, flowConsulta } from "./flows/flowBienvenida";
 import { flowCotizacionNoCliente, flowNoCliente } from "./flows/flowNoCliente";
 import { flowSiCliente } from "./flows/flowCliente";
 import {
@@ -22,7 +22,14 @@ import {
   flowSiniestro,
 } from "./flows/clientes/flowSiniestro";
 import { flowGrua } from "./flows/clientes/flowGrua";
-import { flowCotizacionCliente, flowCotizarAp, flowCotizarAutomotor, flowCotizarComercio, flowCotizarHogar, flowCotizarOtrosRiesgos } from "./flows/clientes/flowCotizacion";
+import {
+  flowCotizacionCliente,
+  flowCotizarAp,
+  flowCotizarAutomotor,
+  flowCotizarComercio,
+  flowCotizarHogar,
+  flowCotizarOtrosRiesgos,
+} from "./flows/clientes/flowCotizacion";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -68,6 +75,7 @@ const main = async () => {
   await createBot({
     flow: createFlow([
       flowBienvenida,
+      flowConsulta,
       flowNoCliente,
       flowCotizacionNoCliente,
       flowSiCliente,
@@ -84,7 +92,7 @@ const main = async () => {
       flowCotizarHogar,
       flowCotizarComercio,
       flowCotizarAp,
-      flowCotizarOtrosRiesgos
+      flowCotizarOtrosRiesgos,
     ]),
     database: new MemoryDB(),
     provider,

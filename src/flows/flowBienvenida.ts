@@ -2,26 +2,28 @@ import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowNoCliente } from "./flowNoCliente";
 import { flowSiCliente } from "./flowCliente";
 
-export const flowBienvenida = addKeyword("Hola")
-  .addAnswer("Hola, te comunicaste con JPMG")
-  .addAnswer(
-    [
-      "Para continuar necesitamos saber si ya sos cliente?",
-      "👉 1 - Si",
-      "👉 2 - No",
-    ],
-    { capture: true },
-    async (ctx, { gotoFlow, fallBack, endFlow }) => {
-      const option: string = ctx.body;
-      switch (option) {
-        case "1":
-          return gotoFlow(flowSiCliente);
-        case "2":
-          return gotoFlow(flowNoCliente);
-        default:
-          return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
-          );
-      }
+export const flowConsulta = addKeyword(EVENTS.ACTION)
+  .addAnswer([
+    "Hola! Te comunicaste JPMG.",
+    "Necesitamos saber si sos cliente",
+    "👉 1 - Si",
+    "👉 2 - No",
+  ])
+  .addAction({ capture: true }, async (ctx, { gotoFlow }) => {
+    const message = ctx.body;
+    if (message === "1") {
+      return gotoFlow(flowSiCliente);
+    } else if (message === "2") {
+      return gotoFlow(flowNoCliente);
     }
-  );
+  });
+
+export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
+  async (ctx, { gotoFlow }) => {
+    const message = ctx.body;
+    if (message.toLowerCase() === "hola") {
+      return gotoFlow(flowConsulta);
+    }
+    return;
+  }
+);

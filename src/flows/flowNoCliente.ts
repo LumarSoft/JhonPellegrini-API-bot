@@ -1,5 +1,5 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
-import { flowBienvenida } from "./flowBienvenida";
+import { flowConsulta } from "./flowBienvenida";
 
 export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -35,7 +35,7 @@ export const flowNoCliente = addKeyword(EVENTS.ACTION)
         case "1":
           return gotoFlow(flowCotizacionNoCliente);
         case "0":
-          return gotoFlow(flowBienvenida);
+          return gotoFlow(flowConsulta);
         default:
           return fallBack(
             "❌ Opción no válida, por favor seleccione una opción válida"
