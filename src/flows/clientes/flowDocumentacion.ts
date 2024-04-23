@@ -4,7 +4,7 @@ import { flowSiCliente } from "../flowCliente";
 export const flowPoliza = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
-    "👉 0 - Para cancelar",
+    "👉 *0* - Para cancelar",
   ])
   .addAction(
     { capture: true },
@@ -25,7 +25,7 @@ export const flowPoliza = addKeyword(EVENTS.ACTION)
 export const flowCuponera = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Por favor deje el dni del titular o patente en caso de ser un vehiculo",
-    "👉 0 - Para cancelar",
+    "👉 *0* - Para cancelar",
   ])
   .addAction(
     { capture: true },
@@ -46,9 +46,9 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
 export const flowDocumentacion = addKeyword(EVENTS.ACTION)
   .addAnswer("Que documentacion necesita?")
   .addAnswer([
-    "👉 1 - Póliza",
-    "👉 2 - Cuponera",
-    "👉 3 - Volver al menu cliente",
+    "👉 *1* - Póliza",
+    "👉 *2* - Cuponera",
+    "👉 *3* - Volver al menu cliente",
   ])
   .addAction(
     { capture: true },

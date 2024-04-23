@@ -4,7 +4,7 @@ import { flowConsulta } from "./flowBienvenida";
 export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Por favor deje sus datos (localidad y descripcion del bien)",
-    "👉 0 - Cancelar",
+    "👉 *0* - Cancelar",
   ])
   .addAction(
     { capture: true },
@@ -26,8 +26,8 @@ export const flowNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer("Nos alegra que este interesado en nosotros")
   .addAnswer([
     "Que desea hacer?",
-    "👉 1 - Solicitar cotizacion",
-    "👉 0 - Volver al menu principal",
+    "👉 *1* - Solicitar cotizacion",
+    "👉 *0* - Volver al menu principal",
   ])
   .addAction(
     { capture: true },

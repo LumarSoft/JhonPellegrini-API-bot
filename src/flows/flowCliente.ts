@@ -8,11 +8,11 @@ import { flowDocumentacion } from "./clientes/flowDocumentacion";
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer(["Que necesita?"])
   .addAnswer([
-    "👉 1 - Solicitud de documentacion",
-    "👉 2 - Siniestros",
-    "👉 3 - Servicio de grua",
-    "👉 4 - Solicitar cotizacion",
-    "👉 0 - Volver al menu principal",
+    "👉 *1* - Solicitud de documentacion",
+    "👉 *2* - Siniestros",
+    "👉 *3* - Servicio de grua",
+    "👉 *4* - Solicitar cotizacion",
+    "👉 *0* - Volver al menu principal",
   ])
   .addAction(
     { capture: true },

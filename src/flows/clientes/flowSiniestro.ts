@@ -5,7 +5,7 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "A continuacion deje la siguiente informacion",
     "DNI del involucrado, Numero de poliza, Fecha del siniestro, Lugar del siniestro, Descripcion del siniestro",
-    "👉 0 - Cancelar",
+    "👉 *0* - Cancelar",
   ])
   .addAction(
     { capture: true },
@@ -24,7 +24,7 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
 export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "A continuacion deje el numero de siniestro que quiere consultar",
-    "👉 0 - Cancelar",
+    "👉 *0* - Cancelar",
   ])
   .addAction(
     { capture: true },
@@ -52,10 +52,10 @@ export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
 export const flowSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer("Usted puede...")
   .addAnswer([
-    "👉 1 - Denunciar siniestro",
-    "👉 2 - Consultar siniestro",
-    "👉 3 - Otras consultas",
-    "👉 4 - Volver al menu cliente",
+    "👉 *1* - Denunciar siniestro",
+    "👉 *2* - Consultar siniestro",
+    "👉 *3* - Otras consultas",
+    "👉 *4* - Volver al menu cliente",
   ])
   .addAction(
     { capture: true },

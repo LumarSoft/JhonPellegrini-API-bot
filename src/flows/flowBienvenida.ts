@@ -6,9 +6,9 @@ export const flowConsulta = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Hola! Te comunicaste JPMG.",
     "Necesitamos saber si sos cliente",
-    "👉 1 - Si",
-    "👉 2 - No",
-    "👉 3 - Chau",
+    "👉 *1* - Si",
+    "👉 *2* - No",
+    "👉 *3* - Chau",
   ])
   .addAction(
     { capture: true },
