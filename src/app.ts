@@ -7,7 +7,13 @@ import {
 import { BaileysProvider, handleCtx } from "@bot-whatsapp/provider-baileys";
 import cors from "cors";
 import { Contact } from "./interfaces/contact";
-import { flowBienvenida, flowConsulta } from "./flows/flowBienvenida";
+import {
+  flowBienvenida,
+  flowConsulta,
+  flowRechazoCreditoDebito,
+  flowRechazoRapipago,
+  flowRechazoTransferencia,
+} from "./flows/flowBienvenida";
 import { flowCotizacionNoCliente, flowNoCliente } from "./flows/flowNoCliente";
 import { flowSiCliente } from "./flows/flowCliente";
 import {
@@ -44,16 +50,21 @@ const main = async () => {
   );
 
   provider.http?.server.post(
-    "/send-message",
+    "/rechazos",
     handleCtx(async (bot, req, res) => {
       const contacts = req.body;
-      console.log("contacts", contacts);
       try {
         const promises = contacts.map(async (contact: Contact) => {
-          const name = contact.Nombre;
-          const phone = contact.Telefono;
-          const message = `Hola ${name}, este es un mensaje mapeado desde el excel`;
-          await bot.sendMessage(phone, message, {});
+          const name = contact.Asegurado;
+          const phone = Number("549" + contact["Tel. Celular"]);
+  
+
+          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
+          const message2 = `👉 1 - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
+          👉 2 - Pago con tarjeta de crédito o debito
+          👉 3 - Pago por transferencia`;
+          await bot.sendMessage(phone, message1, {});
+          await bot.sendMessage(phone, message2, {});
         });
         await Promise.all(promises);
       } catch (error) {
@@ -75,6 +86,9 @@ const main = async () => {
   await createBot({
     flow: createFlow([
       flowBienvenida,
+      flowRechazoRapipago,
+      flowRechazoCreditoDebito,
+      flowRechazoTransferencia,
       flowConsulta,
       flowNoCliente,
       flowCotizacionNoCliente,

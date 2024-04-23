@@ -27,11 +27,34 @@ export const flowConsulta = addKeyword(EVENTS.ACTION)
     }
   );
 
+export const flowRechazoRapipago = addKeyword(EVENTS.ACTION).addAnswer([
+  "Dentro de las 24hs te estaremos enviado el cupon de pago",
+]);
+
+export const flowRechazoCreditoDebito = addKeyword(EVENTS.ACTION).addAnswer([
+  "Dentro de las 24hs nos estaremos contactando para tomar el pago",
+  "O comunicate telefonicamente de lunes a viernes de 8 a 16hs",
+]);
+
+export const flowRechazoTransferencia = addKeyword(EVENTS.ACTION).addAnswer([
+  "Realizar transferencia al CBU 0070081820000004432793 -   ALIAS:  TRUENO.VUELO.DELTA    -   CUENTA CORRIENTE EN PESOS: 4432-7 081-9         TRIUNFO COOP. DE SEGUROS LTDA.  CUIT  30-50006577-6 ",
+  "Una vez realizado, por favor enviar el COMPROBANTE por este medio",
+]);
+
 export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
   async (ctx, { gotoFlow }) => {
     const message = ctx.body;
     if (message.toLowerCase() === "hola") {
       return gotoFlow(flowConsulta);
+    }
+    if (message === "1") {
+      return gotoFlow(flowRechazoRapipago);
+    }
+    if (message === "2") {
+      return gotoFlow(flowRechazoCreditoDebito);
+    }
+    if (message === "3") {
+      return gotoFlow(flowRechazoTransferencia);
     }
     return;
   }

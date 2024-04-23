@@ -1,4 +1,4 @@
 export interface Contact {
-  Nombre: string;
-  Telefono: string;
+  Asegurado: string;
+  "Tel. Celular": number;
 }
