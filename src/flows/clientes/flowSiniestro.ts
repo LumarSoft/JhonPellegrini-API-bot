@@ -15,7 +15,7 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
         gotoFlow(flowSiniestro);
       }
       if (response.length > 0) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para la denuncia de su siniestro");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }
@@ -34,7 +34,7 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowSiniestro);
       }
       if (response.length > 0) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para la consulta de su siniestro");
       }
       return fallBack("❌ Debe ingresar un numero de siniestro valido");
     }
@@ -45,7 +45,7 @@ export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
   .addAction({ capture: true }, async (ctx, { endFlow }) => {
     const response = ctx.body;
     if (response) {
-      return endFlow("Gracias, en breve nos comunicaremos con usted");
+      return endFlow("Gracias, en breve nos comunicaremos con usted para otra consulta sobre siniestro");
     }
   });
 

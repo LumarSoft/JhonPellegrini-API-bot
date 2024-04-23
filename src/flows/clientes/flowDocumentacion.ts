@@ -14,7 +14,9 @@ export const flowPoliza = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowDocumentacion);
       }
       if (response.length > 0) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow(
+          "Gracias, en breve nos comunicaremos con usted para informarle sobre su póliza"
+        );
       }
       return fallBack("❌ Debe ingresar un dni o patente válida");
     }
@@ -33,7 +35,9 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowDocumentacion);
       }
       if (response !== "0" && response.length > 0) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow(
+          "Gracias, en breve nos comunicaremos con usted para informarle sobre su cuponera"
+        );
       }
       return fallBack("❌ Debe ingresar un dni o patente válida");
     }
@@ -42,7 +46,7 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
 export const flowDocumentacion = addKeyword(EVENTS.ACTION)
   .addAnswer("Que documentacion necesita?")
   .addAnswer([
-    "👉 1 - Poliza",
+    "👉 1 - Póliza",
     "👉 2 - Cuponera",
     "👉 3 - Volver al menu cliente",
   ])

@@ -11,7 +11,7 @@ export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowCotizacionCliente);
       }
       if (response.length > 2) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para terminar de cotizar su automotor");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }
@@ -27,7 +27,7 @@ export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowCotizacionCliente);
       }
       if (response.length > 2) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para terminar de cotizar su hogar");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }
@@ -43,7 +43,7 @@ export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowCotizacionCliente);
       }
       if (response.length > 2) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para terminar de cotizar su comercio");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }
@@ -59,7 +59,7 @@ export const flowCotizarAp = addKeyword(EVENTS.ACTION)
         gotoFlow(flowCotizacionCliente);
       }
       if (response.length > 2) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para terminar de cotizar su ap");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }
@@ -75,7 +75,7 @@ export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowCotizacionCliente);
       }
       if (response.length > 2) {
-        return endFlow("Gracias, en breve nos comunicaremos con usted");
+        return endFlow("Gracias, en breve nos comunicaremos con usted para terminar de cotizar otros riesgos");
       }
       return fallBack("❌ Debe ingresar una informacion valida");
     }

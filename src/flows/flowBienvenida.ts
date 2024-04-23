@@ -28,15 +28,18 @@ export const flowConsulta = addKeyword(EVENTS.ACTION)
   );
 
 export const flowRechazoRapipago = addKeyword(EVENTS.ACTION).addAnswer([
+  "Usted ha seleccionado la opción cupón de pago de rapipago",
   "Dentro de las 24hs te estaremos enviado el cupon de pago",
 ]);
 
 export const flowRechazoCreditoDebito = addKeyword(EVENTS.ACTION).addAnswer([
+  "Usted ha seleccionado la opción de pago con tarjeta de credito o debito",
   "Dentro de las 24hs nos estaremos contactando para tomar el pago",
   "O comunicate telefonicamente de lunes a viernes de 8 a 16hs",
 ]);
 
 export const flowRechazoTransferencia = addKeyword(EVENTS.ACTION).addAnswer([
+  "Usted ha seleccionado la opción de pago por transferencia bancaria",
   "Realizar transferencia al CBU 0070081820000004432793 -   ALIAS:  TRUENO.VUELO.DELTA    -   CUENTA CORRIENTE EN PESOS: 4432-7 081-9         TRIUNFO COOP. DE SEGUROS LTDA.  CUIT  30-50006577-6 ",
   "Una vez realizado, por favor enviar el COMPROBANTE por este medio",
 ]);
@@ -47,13 +50,13 @@ export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
     if (message.toLowerCase() === "hola") {
       return gotoFlow(flowConsulta);
     }
-    if (message === "1") {
+    if (message.toLowerCase() === "rp") {
       return gotoFlow(flowRechazoRapipago);
     }
-    if (message === "2") {
+    if (message.toLowerCase() === "cd") {
       return gotoFlow(flowRechazoCreditoDebito);
     }
-    if (message === "3") {
+    if (message.toLocaleLowerCase() === "pt") {
       return gotoFlow(flowRechazoTransferencia);
     }
     return;

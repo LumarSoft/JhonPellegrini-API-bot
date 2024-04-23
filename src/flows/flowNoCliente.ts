@@ -14,7 +14,9 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
         return gotoFlow(flowNoCliente);
       }
       if (response.length > 2) {
-        return endFlow("En breve nos comunicaremos con usted");
+        return endFlow(
+          "Datos de cotizacion *no cliente* procesados. En breve nos comunicaremos con usted, Gracias!"
+        );
       }
       return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
     }
