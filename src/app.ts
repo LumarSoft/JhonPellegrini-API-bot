@@ -59,9 +59,10 @@ const main = async () => {
           const phone = Number("549" + contact["Tel. Celular"]);
 
           const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
-          const message2 = `👉 RP - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
-          👉 CD - Pago con tarjeta de crédito o debito
-          👉 PT - Pago por transferencia`;
+          const message2 = `
+          👉 *EF* - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
+          👉 *TC* - Pago con tarjeta de crédito o debito
+          👉 *TR* - Pago por transferencia`;
           await bot.sendMessage(phone, message1, {});
           await bot.sendMessage(phone, message2, {});
         });

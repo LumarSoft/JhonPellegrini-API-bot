@@ -50,13 +50,13 @@ export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
     if (message.toLowerCase() === "hola") {
       return gotoFlow(flowConsulta);
     }
-    if (message.toLowerCase() === "rp") {
+    if (message.toLowerCase() === "ef") {
       return gotoFlow(flowRechazoRapipago);
     }
-    if (message.toLowerCase() === "cd") {
+    if (message.toLowerCase() === "tc") {
       return gotoFlow(flowRechazoCreditoDebito);
     }
-    if (message.toLocaleLowerCase() === "pt") {
+    if (message.toLocaleLowerCase() === "tr") {
       return gotoFlow(flowRechazoTransferencia);
     }
     return;
