@@ -63,11 +63,11 @@ const main = async () => {
           const phone = Number("549" + contact["Tel. Celular"]);
           const amount = contact.Importe;
 
-          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. El importe a pagar es de ${amount} Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
+          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el débito automatico de la cuota del seguro. El importe a pagar es de ${amount}. Seleccioná las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
           const message2 = `
-          👉 *EF* - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
-          👉 *TC* - Pago con tarjeta de crédito o debito
-          👉 *TR* - Pago por transferencia`;
+          👉 *EF* - Envío cupon de pago para abonar en Rapipago, pago fácil o santa fe servicios.
+          👉 *TC* - Pago con tarjeta de crédito o débito.
+          👉 *TR* - Pago por transferencia.`;
           await bot.sendMessage(phone, message1, {});
           await bot.sendMessage(phone, message2, {});
         });
@@ -75,17 +75,17 @@ const main = async () => {
       } catch (error) {
         console.error("Error al enviar mensajes:", error);
       }
-      res.end("Mensajes enviados");
+      res.end("Mensajes enviados.");
     })
   );
 
   provider.http?.server.get("/funciona", (req, res) => {
-    res.end("Funciona");
+    res.end("Funciona.");
   });
 
   // para cuando se desconecta
   provider.on("disconnect", () => {
-    console.log("Se desconectó el bot");
+    console.log("Se desconectó el bot.");
   });
 
   await createBot({

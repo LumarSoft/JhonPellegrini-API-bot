@@ -3,7 +3,7 @@ import { flowSiCliente } from "../flowCliente";
 
 export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Aqui se solicitaria los datos del automotor",
+    "Aquí se solicitarían los datos del automotor.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -18,12 +18,12 @@ export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
           "Gracias, en breve nos comunicaremos con usted para terminar de cotizar su automotor. (cod#1400)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información válida.");
     }
   );
 
 export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del hogar", "👉 *0* - Cancelar"])
+  .addAnswer(["Aquí se solicitarían los datos del hogar", "👉 *0* - Cancelar"])
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, endFlow, fallBack }) => {
@@ -36,13 +36,13 @@ export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
           "Gracias, en breve nos comunicaremos con usted para terminar de cotizar su hogar. (cod#1401)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información válida.");
     }
   );
 
 export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Aqui se solicitaria los datos del comercio",
+    "Aquí se solicitarían los datos del comercio.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -57,12 +57,12 @@ export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
           "Gracias, en breve nos comunicaremos con usted para terminar de cotizar su comercio. (cod#1402)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información válida.");
     }
   );
 
 export const flowCotizarAp = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui se solicitaria los datos del ap", "👉 *0* - Cancelar"])
+  .addAnswer(["Aquí se solicitarían los datos del ap", "👉 *0* - Cancelar"])
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, endFlow }) => {
@@ -75,12 +75,12 @@ export const flowCotizarAp = addKeyword(EVENTS.ACTION)
           "Gracias, en breve nos comunicaremos con usted para terminar de cotizar su ap. (cod#1403)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información válida.");
     }
   );
 
 export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui iria la cotizacion de otros riesgos", "👉 *0* - Cancelar"])
+  .addAnswer(["Aqui iría la cotización de otros riesgos", "👉 *0* - Cancelar"])
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, endFlow }) => {
@@ -93,20 +93,20 @@ export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
           "Gracias, en breve nos comunicaremos con usted para terminar de cotizar otros riesgos. (cod#1404)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información válida.");
     }
   );
 
 export const flowCotizacionCliente = addKeyword(EVENTS.ACTION)
-  .addAnswer("Que desea cotizar?")
+  .addAnswer("¿Qué desea cotizar?")
   .addAnswer([
     "👉 *1* - Automotor",
     "👉 *2* - Hogar",
     "👉 *3* - Comercio",
     "👉 *4* - Ap",
     "👉 *5* - Otros riesgos",
-    "👉 *6* - volver al menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "👉 *6* - Volver al menú cliente",
+    "👉 *0* - Finalizar conversación",
   ])
   .addAction(
     {
@@ -128,7 +128,7 @@ export const flowCotizacionCliente = addKeyword(EVENTS.ACTION)
         case "6":
           return gotoFlow(flowSiCliente);
         case "0":
-          return endFlow("Nos vemos!");
+          return endFlow("¡Nos vemos!");
         default:
           return fallBack(
             "❌ Opción no válida, por favor seleccione una opción válida"

@@ -3,10 +3,10 @@ import { flowSiCliente } from "../flowCliente";
 
 const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Necesita realizar algo mas?",
-    "👉 *1* - Otra consulta",
-    "👉 *2* - Menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "¿Necesita realizar algo más?",
+    "👉 *1* - Otra consulta.",
+    "👉 *2* - Menú cliente.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction(
     { capture: true },
@@ -18,10 +18,10 @@ const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
         case "2":
           return gotoFlow(flowSiCliente);
         case "0":
-          return endFlow("Nos vemos!");
+          return endFlow("¡Nos vemos luego!");
         default:
           return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
+            "❌ Opción no válida, por favor seleccione una opción válida."
           );
       }
     }
@@ -29,8 +29,8 @@ const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
 
 export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "A continuacion deje la siguiente informacion",
-    "DNI del involucrado, Numero de poliza, Fecha del siniestro, Lugar del siniestro, Descripcion del siniestro",
+    "A continuación deje la siguiente información",
+    "DNI del involucrado, Numero de póliza, Fecha del siniestro, Lugar del siniestro, Descripción del siniestro.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -42,16 +42,16 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
       }
       if (response.length > 0) {
         return endFlow(
-          "Gracias, en breve nos comunicaremos con usted para la denuncia de su siniestro (cod#1300)"
+          "Gracias, en breve nos comunicaremos con usted para la denuncia de su siniestro. (cod#1300)"
         );
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información valida.");
     }
   );
 
 export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "A continuacion deje el numero de siniestro que quiere consultar",
+    "A continuación deje el número de siniestro que quiere consultar.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -63,33 +63,33 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
       }
       if (response.length > 0) {
         return endFlow(
-          "Gracias, en breve nos comunicaremos con usted para la consulta de su siniestro (cod#1301)"
+          "Gracias, en breve nos comunicaremos con usted para la consulta de su siniestro. (cod#1301)"
         );
       }
-      return fallBack("❌ Debe ingresar un numero de siniestro valido");
+      return fallBack("❌ Debe ingresar un número de siniestro válido.");
     }
   );
 
 export const flowOtraConsultaSiniestro = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Aqui iria otra consulta"])
+  .addAnswer(["Aqui iría otra consulta"])
   .addAction({ capture: true }, async (ctx, { gotoFlow, endFlow }) => {
     const response = ctx.body;
     if (response === "4") {
       return gotoFlow(flowSiCliente);
     } else
       return endFlow(
-        "Gracias, en breve nos comunicaremos con usted para otra consulta sobre siniestro (cod#1302)"
+        "Gracias, en breve nos comunicaremos con usted para otra consulta sobre siniestro. (cod#1302)"
       );
   });
 
 export const flowSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer("Usted puede...")
   .addAnswer([
-    "👉 *1* - Denunciar siniestro",
-    "👉 *2* - Consultar siniestro",
-    "👉 *3* - Otras consultas",
-    "👉 *4* - Volver al menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "👉 *1* - Denunciar siniestro.",
+    "👉 *2* - Consultar siniestro.",
+    "👉 *3* - Otras consultas.",
+    "👉 *4* - Volver al menú cliente.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction(
     { capture: true },
@@ -105,10 +105,10 @@ export const flowSiniestro = addKeyword(EVENTS.ACTION)
         case "4":
           return gotoFlow(flowSiCliente);
         case "0":
-          return endFlow("Nos vemos luego");
+          return endFlow("¡Nos vemos luego!");
         default:
           return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
+            "❌ Opción no válida, por favor seleccione una opción válida."
           );
       }
     }
