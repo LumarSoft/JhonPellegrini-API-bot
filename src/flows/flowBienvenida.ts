@@ -46,7 +46,9 @@ export const flowRechazoTransferencia = addKeyword(EVENTS.ACTION).addAnswer([
 ]);
 
 export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
-  async (ctx, { gotoFlow }) => {
+  async (ctx, { gotoFlow, globalState }) => {
+    globalState.update({ readyForBL: false });
+
     const message = ctx.body;
     if (message.toLowerCase() === "ef") {
       return gotoFlow(flowRechazoRapipago);

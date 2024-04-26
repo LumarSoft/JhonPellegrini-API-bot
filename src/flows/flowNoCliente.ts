@@ -1,5 +1,6 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowConsulta } from "./flowBienvenida";
+import { blackListFlow } from "./blacklistflow";
 
 export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -8,15 +9,17 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   ])
   .addAction(
     { capture: true },
-    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+    async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
       const response = ctx.body;
       if (response === "0") {
         return gotoFlow(flowNoCliente);
       }
       if (response.length > 5) {
-        return endFlow(
+        globalState.update({ readyForBL: true });
+        await flowDynamic(
           "Datos de cotizacion procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
         );
+        return gotoFlow(blackListFlow);
       }
       return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
     }

@@ -25,12 +25,14 @@ import {
 } from "./flows/clientes/flowDocumentacion";
 import {
   flowConsultaSiniestro,
+  flowContinuacionSiniestro,
   flowDenunciaSiniestro,
   flowOtraConsultaSiniestro,
   flowSiniestro,
 } from "./flows/clientes/flowSiniestro";
 import { flowGrua } from "./flows/clientes/flowGrua";
 import {
+  continuacionCotizacion,
   flowCotizacionCliente,
   flowCotizarAp,
   flowCotizarAutomotor,
@@ -38,7 +40,10 @@ import {
   flowCotizarHogar,
   flowCotizarOtrosRiesgos,
 } from "./flows/clientes/flowCotizacion";
-import { flowOtraConsulta } from "./flows/clientes/flowOtraConsulta";
+import {
+  FlowContinuar,
+  flowOtraConsulta,
+} from "./flows/clientes/flowOtraConsulta";
 import { blackListFlow } from "./flows/blacklistflow";
 
 const main = async () => {
@@ -108,6 +113,7 @@ const main = async () => {
       flowDenunciaSiniestro,
       flowConsultaSiniestro,
       flowOtraConsultaSiniestro,
+      flowContinuacionSiniestro,
       flowGrua,
       flowCotizacionCliente,
       flowCotizarAutomotor,
@@ -115,7 +121,9 @@ const main = async () => {
       flowCotizarComercio,
       flowCotizarAp,
       flowCotizarOtrosRiesgos,
+      continuacionCotizacion,
       flowOtraConsulta,
+      FlowContinuar,
     ]),
     database: new MemoryDB(),
     provider,

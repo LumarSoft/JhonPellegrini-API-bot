@@ -5,6 +5,7 @@ import { flowGrua } from "./clientes/flowGrua";
 import { flowSiniestro } from "./clientes/flowSiniestro";
 import { flowDocumentacion } from "./clientes/flowDocumentacion";
 import { flowOtraConsulta } from "./clientes/flowOtraConsulta";
+import { blackListFlow } from "./blacklistflow";
 
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -38,7 +39,7 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
         case "6":
           return gotoFlow(flowConsulta);
         case "0":
-          return endFlow("Nos vemos luego");
+          return gotoFlow(blackListFlow);
         default:
           return fallBack(
             "❌ Opción no válida, por favor seleccione una opción válida"

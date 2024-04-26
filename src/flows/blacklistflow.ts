@@ -3,20 +3,22 @@ import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 const timers: { [key: string]: NodeJS.Timeout } = {};
 
 export const blackListFlow = addKeyword(EVENTS.ACTION).addAction(
-  async (ctx, { flowDynamic, blacklist }) => {
+  async (ctx, { blacklist, globalState, flowDynamic }) => {
     const number = ctx.from;
-    const checked = blacklist.checkIf(number);
+    const deservesBL = globalState.get("readyForBL");
 
-    if (!checked) {
+    if (deservesBL) {
       blacklist.add(ctx.from);
-      await flowDynamic(`${ctx.from} added to blacklist`);
-
-      // Iniciar temporizador para eliminar usuario de la blacklist después de 30 minutos
-      startTimer(number, 1800000, blacklist); // 30 minutos en milisegundos
+      console.log(`${ctx.from} added to blacklist`);
+      await flowDynamic(
+        "Gracias por comunicarte con nosotros. A la brevedad contestaremos tu consulta."
+      );
     } else {
-      blacklist.remove(ctx.from);
-      await flowDynamic(`${ctx.from} removed from blacklist`);
+      flowDynamic("Gracias por comunicarte con nosotros.");
     }
+
+    // Iniciar temporizador para eliminar usuario de la blacklist después de 30 minutos
+    startTimer(number, 60000, blacklist);
   }
 );
 
