@@ -17,6 +17,8 @@ import {
 import { flowCotizacionNoCliente, flowNoCliente } from "./flows/flowNoCliente";
 import { flowSiCliente } from "./flows/flowCliente";
 import {
+  flowConfirmacionCuponera,
+  flowConfirmacionPoliza,
   flowCuponera,
   flowDocumentacion,
   flowPoliza,
@@ -24,7 +26,7 @@ import {
 import {
   flowConsultaSiniestro,
   flowDenunciaSiniestro,
-  flowOtraConsulta,
+  flowOtraConsultaSiniestro,
   flowSiniestro,
 } from "./flows/clientes/flowSiniestro";
 import { flowGrua } from "./flows/clientes/flowGrua";
@@ -36,6 +38,8 @@ import {
   flowCotizarHogar,
   flowCotizarOtrosRiesgos,
 } from "./flows/clientes/flowCotizacion";
+import { flowOtraConsulta } from "./flows/clientes/flowOtraConsulta";
+import { blackListFlow } from "./flows/blacklistflow";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -57,8 +61,9 @@ const main = async () => {
         const promises = contacts.map(async (contact: Contact) => {
           const name = contact.Asegurado;
           const phone = Number("549" + contact["Tel. Celular"]);
+          const amount = contact.Importe;
 
-          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
+          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. El importe a pagar es de ${amount} Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
           const message2 = `
           👉 *EF* - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
           👉 *TC* - Pago con tarjeta de crédito o debito
@@ -85,6 +90,7 @@ const main = async () => {
 
   await createBot({
     flow: createFlow([
+      blackListFlow,
       flowBienvenida,
       flowRechazoRapipago,
       flowRechazoCreditoDebito,
@@ -96,10 +102,12 @@ const main = async () => {
       flowDocumentacion,
       flowPoliza,
       flowCuponera,
+      flowConfirmacionPoliza,
+      flowConfirmacionCuponera,
       flowSiniestro,
       flowDenunciaSiniestro,
       flowConsultaSiniestro,
-      flowOtraConsulta,
+      flowOtraConsultaSiniestro,
       flowGrua,
       flowCotizacionCliente,
       flowCotizarAutomotor,
@@ -107,6 +115,7 @@ const main = async () => {
       flowCotizarComercio,
       flowCotizarAp,
       flowCotizarOtrosRiesgos,
+      flowOtraConsulta,
     ]),
     database: new MemoryDB(),
     provider,

@@ -4,15 +4,21 @@ import { flowConsulta } from "./flowBienvenida";
 import { flowGrua } from "./clientes/flowGrua";
 import { flowSiniestro } from "./clientes/flowSiniestro";
 import { flowDocumentacion } from "./clientes/flowDocumentacion";
+import { flowOtraConsulta } from "./clientes/flowOtraConsulta";
 
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
-  .addAnswer(["Que necesita?"])
+  .addAnswer([
+    "Que necesita?",
+    "*RECORDATORIO*: Los horarios de atencion son de 8 a 16hs",
+  ])
   .addAnswer([
     "👉 *1* - Solicitud de documentacion",
     "👉 *2* - Siniestros",
     "👉 *3* - Servicio de grua",
     "👉 *4* - Solicitar cotizacion",
-    "👉 *0* - Volver al menu principal",
+    "👉 *5* - Otra consulta",
+    "👉 *6* - Volver al menu principal",
+    "👉 *0* - Finalizar conversacion",
   ])
   .addAction(
     { capture: true },
@@ -27,8 +33,12 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
           return gotoFlow(flowGrua);
         case "4":
           return gotoFlow(flowCotizacionCliente);
-        case "0":
+        case "5":
+          return gotoFlow(flowOtraConsulta);
+        case "6":
           return gotoFlow(flowConsulta);
+        case "0":
+          return endFlow("Nos vemos luego");
         default:
           return fallBack(
             "❌ Opción no válida, por favor seleccione una opción válida"

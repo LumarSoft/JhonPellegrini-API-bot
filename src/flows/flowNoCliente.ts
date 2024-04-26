@@ -13,9 +13,9 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
       if (response === "0") {
         return gotoFlow(flowNoCliente);
       }
-      if (response.length > 2) {
+      if (response.length > 5) {
         return endFlow(
-          "Datos de cotizacion *no cliente* procesados. En breve nos comunicaremos con usted, Gracias!"
+          "Datos de cotizacion procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
         );
       }
       return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
@@ -23,11 +23,15 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   );
 
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
-  .addAnswer("Nos alegra que este interesado en nosotros")
+  .addAnswer([
+    "Nos alegra que este interesado en nosotros",
+    "*RECORDATORIO*: Los horarios de atencion son de 8 a 16hs",
+  ])
   .addAnswer([
     "Que desea hacer?",
     "👉 *1* - Solicitar cotizacion",
-    "👉 *0* - Volver al menu principal",
+    "👉 *2* - Volver al menu principal",
+    "👉 *0* - Finalizar conversacion",
   ])
   .addAction(
     { capture: true },
@@ -36,8 +40,10 @@ export const flowNoCliente = addKeyword(EVENTS.ACTION)
       switch (option) {
         case "1":
           return gotoFlow(flowCotizacionNoCliente);
-        case "0":
+        case "2":
           return gotoFlow(flowConsulta);
+        case "0":
+          return endFlow("Nos vemos luego");
         default:
           return fallBack(
             "❌ Opción no válida, por favor seleccione una opción válida"
