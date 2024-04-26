@@ -14,7 +14,7 @@ export const flowConfirmacionPoliza = addKeyword(EVENTS.ACTION)
     const response = ctx.body;
     switch (response) {
       case "1":
-        return gotoFlow(flowDocumentación);
+        return gotoFlow(flowDocumentacion);
       case "2":
         return gotoFlow(flowSiCliente);
       case "0":
@@ -36,7 +36,7 @@ export const flowConfirmacionCuponera = addKeyword(EVENTS.ACTION)
     const response = ctx.body;
     switch (response) {
       case "1":
-        return gotoFlow(flowDocumentación);
+        return gotoFlow(flowDocumentacion);
       case "2":
         return gotoFlow(flowSiCliente);
       case "0":
@@ -86,7 +86,7 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
     }
   );
 
-export const flowDocumentación = addKeyword(EVENTS.ACTION)
+export const flowDocumentacion = addKeyword(EVENTS.ACTION)
   .addAnswer("¿Que documentación necesita?")
   .addAnswer([
     "👉 *1* - Póliza.",
