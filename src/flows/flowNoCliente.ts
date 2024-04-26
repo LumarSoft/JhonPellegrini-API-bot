@@ -4,8 +4,8 @@ import { blackListFlow } from "./blacklistflow";
 
 export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Por favor deje sus datos (localidad y descripcion del bien)",
-    "👉 *0* - Cancelar",
+    "Por favor, deje sus datos (localidad y descripción del bien).",
+    "👉 *0* - Cancelar.",
   ])
   .addAction(
     { capture: true },
@@ -21,20 +21,20 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(blackListFlow);
       }
-      return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
+      return fallBack("❌ Debe ingresar una localidad y descripción del bien.");
     }
   );
 
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Nos alegra que este interesado en nosotros",
-    "*RECORDATORIO*: Los horarios de atencion son de 8 a 16hs",
+    "¡Nos alegra que este interesado en nosotros!",
+    "*RECORDATORIO*: Nuestros horarios de atencion son de 8 a 16hs",
   ])
   .addAnswer([
-    "Que desea hacer?",
-    "👉 *1* - Solicitar cotizacion",
-    "👉 *2* - Volver al menu principal",
-    "👉 *0* - Finalizar conversacion",
+    "¿Que desea hacer?",
+    "👉 *1* - Solicitar cotización.",
+    "👉 *2* - Volver al menú principal.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction(
     { capture: true },
@@ -46,10 +46,10 @@ export const flowNoCliente = addKeyword(EVENTS.ACTION)
         case "2":
           return gotoFlow(flowConsulta);
         case "0":
-          return endFlow("Nos vemos luego");
+          return endFlow("¡Nos vemos luego!");
         default:
           return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
+            "❌ Opción no válida, por favor seleccione una opción válida."
           );
       }
     }

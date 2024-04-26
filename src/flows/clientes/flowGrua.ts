@@ -3,11 +3,11 @@ import { flowSiCliente } from "../flowCliente";
 import { blackListFlow } from "../blacklistflow";
 
 export const flowGrua = addKeyword(EVENTS.ACTION)
-  .addAnswer("Si necesita una grua puede llamar al numero 08106660302.")
-  .addAnswer("Recordatorio: La cobertura A no posee asistencia de grua")
+  .addAnswer("Si necesita una grúa puede llamar al numero 08106660302.")
+  .addAnswer("Recordatorio: La cobertura A no posee asistencia de grúa.")
   .addAnswer([
-    "👉 *1* - Volver al menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "👉 *1* - Volver al menú cliente.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const option = ctx.body;

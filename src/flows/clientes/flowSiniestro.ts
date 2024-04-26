@@ -4,10 +4,10 @@ import { blackListFlow } from "../blacklistflow";
 
 export const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Necesita realizar algo mas?",
-    "👉 *1* - Otra consulta",
-    "👉 *2* - Menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "¿Necesita realizar algo más?",
+    "👉 *1* - Otra consulta.",
+    "👉 *2* - Menú cliente.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
@@ -27,8 +27,8 @@ export const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
 
 export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "A continuacion deje la siguiente informacion",
-    "DNI del involucrado, Numero de poliza, Fecha del siniestro, Lugar del siniestro, Descripcion del siniestro",
+    "A continuación deje la siguiente información",
+    "DNI del involucrado, Numero de póliza, Fecha del siniestro, Lugar del siniestro, Descripción del siniestro.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -45,13 +45,13 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(flowContinuacionSiniestro);
       }
-      return fallBack("❌ Debe ingresar una informacion valida");
+      return fallBack("❌ Debe ingresar una información valida.");
     }
   );
 
 export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "A continuacion deje el numero de siniestro que quiere consultar",
+    "A continuación deje el número de siniestro que quiere consultar.",
     "👉 *0* - Cancelar",
   ])
   .addAction(
@@ -68,7 +68,7 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(flowContinuacionSiniestro);
       }
-      return fallBack("❌ Debe ingresar un numero de siniestro valido");
+      return fallBack("❌ Debe ingresar un número de siniestro válido.");
     }
   );
 
@@ -93,11 +93,11 @@ export const flowOtraConsultaSiniestro = addKeyword(EVENTS.ACTION)
 export const flowSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer("Usted puede...")
   .addAnswer([
-    "👉 *1* - Denunciar siniestro",
-    "👉 *2* - Consultar siniestro",
-    "👉 *3* - Otras consultas",
-    "👉 *4* - Volver al menu cliente",
-    "👉 *0* - Finalizar conversacion",
+    "👉 *1* - Denunciar siniestro.",
+    "👉 *2* - Consultar siniestro.",
+    "👉 *3* - Otras consultas.",
+    "👉 *4* - Volver al menú cliente.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const option = ctx.body;

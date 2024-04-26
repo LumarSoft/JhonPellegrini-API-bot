@@ -9,17 +9,17 @@ import { blackListFlow } from "./blacklistflow";
 
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Que necesita?",
-    "*RECORDATORIO*: Los horarios de atencion son de 8 a 16hs",
+    "¿Que necesita?",
+    "*RECORDATORIO*: Nuestros horarios de atencion son de 8 a 16hs",
   ])
   .addAnswer([
-    "👉 *1* - Solicitud de documentacion",
-    "👉 *2* - Siniestros",
-    "👉 *3* - Servicio de grua",
-    "👉 *4* - Solicitar cotizacion",
-    "👉 *5* - Otra consulta",
-    "👉 *6* - Volver al menu principal",
-    "👉 *0* - Finalizar conversacion",
+    "👉 *1* - Solicitud de documentación.",
+    "👉 *2* - Siniestros.",
+    "👉 *3* - Servicio de grúa.",
+    "👉 *4* - Solicitar cotización",
+    "👉 *5* - Otra consulta.",
+    "👉 *6* - Volver al menú principal.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction(
     { capture: true },
@@ -42,7 +42,7 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
           return gotoFlow(blackListFlow);
         default:
           return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
+            "❌ Opción no válida, por favor seleccione una opción válida."
           );
       }
     }

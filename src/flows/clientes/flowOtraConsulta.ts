@@ -4,9 +4,9 @@ import { blackListFlow } from "../blacklistflow";
 
 export const FlowContinuar = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Perfecto. Necesita realizar algo mas?",
-    "👉 *1* - Menu cliente",
-    "👉 *0* - Hasta luego!",
+    "Perfecto. ¿Necesita realizar algo más?",
+    "👉 *1* - Menú cliente.",
+    "👉 *0* - ¡Nos vemos luego!",
   ])
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
@@ -25,7 +25,7 @@ export const FlowContinuar = addKeyword(EVENTS.ACTION)
 export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Deje escrita su consulta y nos comunicaremos con usted a la brevedad.",
-    "*RECUERDE*: Horario de atencion de 9 a 18hs",
+    "*RECUERDE*: Nuestro horario de atencion es de *9* a *18*hs",
     "👉 *0* - Para cancelar",
   ])
   .addAction(
@@ -43,7 +43,7 @@ export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
         return gotoFlow(FlowContinuar);
       }
       return fallBack(
-        "❌ Debe ingresar una consulta válida, por favor intente nuevamente"
+        "❌ Debe ingresar una consulta válida, por favor intente nuevamente."
       );
     }
   );
