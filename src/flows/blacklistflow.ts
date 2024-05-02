@@ -1,6 +1,5 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 
-const timers: { [key: string]: NodeJS.Timeout } = {};
 
 export const blackListFlow = addKeyword(EVENTS.ACTION).addAction(
   async (ctx, { blacklist, globalState, flowDynamic }) => {
@@ -23,7 +22,7 @@ export const blackListFlow = addKeyword(EVENTS.ACTION).addAction(
 );
 
 const startTimer = (number: string, ms: number, blacklist: any) => {
-  timers[number] = setTimeout(() => {
+  setTimeout(() => {
     blacklist.remove(number);
     console.log(`User ${number} removed from blacklist`);
   }, ms);

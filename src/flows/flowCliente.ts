@@ -10,7 +10,7 @@ import { blackListFlow } from "./blacklistflow";
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "¿Que necesita?",
-    "*RECORDATORIO*: Nuestros horarios de atencion son de 8 a 16hs",
+    "*RECORDATORIO*: Nuestros horarios de atención son de 8 a 16hs",
   ])
   .addAnswer([
     "👉 *1* - Solicitud de documentación.",

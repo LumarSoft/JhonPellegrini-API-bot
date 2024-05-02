@@ -25,7 +25,7 @@ export const FlowContinuar = addKeyword(EVENTS.ACTION)
 export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Deje escrita su consulta y nos comunicaremos con usted a la brevedad.",
-    "*RECUERDE*: Nuestro horario de atencion es de *9* a *18*hs",
+    "*RECUERDE*: Nuestro horario de atención es de *9* a *18*hs",
     "👉 *0* - Para cancelar",
   ])
   .addAction(

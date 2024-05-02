@@ -17,7 +17,7 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
       if (response.length > 5) {
         globalState.update({ readyForBL: true });
         await flowDynamic(
-          "Datos de cotizacion procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
+          "Datos de cotización procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
         );
         return gotoFlow(blackListFlow);
       }
@@ -28,7 +28,7 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "¡Nos alegra que este interesado en nosotros!",
-    "*RECORDATORIO*: Nuestros horarios de atencion son de 8 a 16hs",
+    "*RECORDATORIO*: Nuestros horarios de atención son de 8 a 16hs",
   ])
   .addAnswer([
     "¿Que desea hacer?",

@@ -5,7 +5,7 @@ import { blackListFlow } from "../blacklistflow";
 export const continuacionCotizacion = addKeyword(EVENTS.ACTION)
   .addAnswer([
     "Desea hacer algo mas?",
-    "👉 *1* - Menu cotizacion",
+    "👉 *1* - Menu cotización",
     "👉 *2* - Menu cliente",
     "👉 *0* - Finalizar conversacion",
   ])
