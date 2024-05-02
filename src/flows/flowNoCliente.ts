@@ -1,33 +1,40 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowConsulta } from "./flowBienvenida";
+import { blackListFlow } from "./blacklistflow";
 
 export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
-    "Por favor deje sus datos (localidad y descripcion del bien)",
-    "👉 *0* - Cancelar",
+    "Por favor, deje sus datos (localidad y descripción del bien).",
+    "👉 *0* - Cancelar.",
   ])
   .addAction(
     { capture: true },
-    async (ctx, { gotoFlow, fallBack, endFlow }) => {
+    async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
       const response = ctx.body;
       if (response === "0") {
         return gotoFlow(flowNoCliente);
       }
-      if (response.length > 2) {
-        return endFlow(
-          "Datos de cotizacion *no cliente* procesados. En breve nos comunicaremos con usted, Gracias!"
+      if (response.length > 5) {
+        globalState.update({ readyForBL: true });
+        await flowDynamic(
+          "Datos de cotización procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
         );
+        return gotoFlow(blackListFlow);
       }
-      return fallBack("❌ Debe ingresar una localidad y descripcion del bien");
+      return fallBack("❌ Debe ingresar una localidad y descripción del bien.");
     }
   );
 
 export const flowNoCliente = addKeyword(EVENTS.ACTION)
-  .addAnswer("Nos alegra que este interesado en nosotros")
   .addAnswer([
-    "Que desea hacer?",
-    "👉 *1* - Solicitar cotizacion",
-    "👉 *0* - Volver al menu principal",
+    "¡Nos alegra que este interesado en nosotros!",
+    "*RECORDATORIO*: Nuestros horarios de atención son de 8 a 16hs",
+  ])
+  .addAnswer([
+    "¿Que desea hacer?",
+    "👉 *1* - Solicitar cotización.",
+    "👉 *2* - Volver al menú principal.",
+    "👉 *0* - Finalizar conversación.",
   ])
   .addAction(
     { capture: true },
@@ -36,11 +43,13 @@ export const flowNoCliente = addKeyword(EVENTS.ACTION)
       switch (option) {
         case "1":
           return gotoFlow(flowCotizacionNoCliente);
-        case "0":
+        case "2":
           return gotoFlow(flowConsulta);
+        case "0":
+          return endFlow("¡Nos vemos luego!");
         default:
           return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida"
+            "❌ Opción no válida, por favor seleccione una opción válida."
           );
       }
     }

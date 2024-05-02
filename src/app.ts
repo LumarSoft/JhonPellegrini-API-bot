@@ -17,18 +17,22 @@ import {
 import { flowCotizacionNoCliente, flowNoCliente } from "./flows/flowNoCliente";
 import { flowSiCliente } from "./flows/flowCliente";
 import {
+  flowConfirmacionCuponera,
+  flowConfirmacionPoliza,
   flowCuponera,
   flowDocumentacion,
   flowPoliza,
 } from "./flows/clientes/flowDocumentacion";
 import {
   flowConsultaSiniestro,
+  flowContinuacionSiniestro,
   flowDenunciaSiniestro,
-  flowOtraConsulta,
+  flowOtraConsultaSiniestro,
   flowSiniestro,
 } from "./flows/clientes/flowSiniestro";
 import { flowGrua } from "./flows/clientes/flowGrua";
 import {
+  continuacionCotizacion,
   flowCotizacionCliente,
   flowCotizarAp,
   flowCotizarAutomotor,
@@ -36,6 +40,11 @@ import {
   flowCotizarHogar,
   flowCotizarOtrosRiesgos,
 } from "./flows/clientes/flowCotizacion";
+import {
+  FlowContinuar,
+  flowOtraConsulta,
+} from "./flows/clientes/flowOtraConsulta";
+import { blackListFlow } from "./flows/blacklistflow";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -57,12 +66,13 @@ const main = async () => {
         const promises = contacts.map(async (contact: Contact) => {
           const name = contact.Asegurado;
           const phone = Number("549" + contact["Tel. Celular"]);
+          const amount = contact.Importe;
 
-          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el debito automatico de la cuota del seguro. Selecciona las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
+          const message1 = `Hola ${name}, nos comunicamos desde JPMG para informarte que nos llego rechazado el débito automatico de la cuota del seguro. El importe a pagar es de ${amount}. Seleccioná las opciones para gestionar y abonar el mismo dentro de las 48 hs para evitar quedar sin cobertura`;
           const message2 = `
-          👉 *EF* - Envio cupon de pago para abonar en Rapipago, pago fácil santa fe servicios
-          👉 *TC* - Pago con tarjeta de crédito o debito
-          👉 *TR* - Pago por transferencia`;
+          👉 *EF* - Envío cupon de pago para abonar en Rapipago, pago fácil o santa fe servicios.
+          👉 *TC* - Pago con tarjeta de crédito o débito.
+          👉 *TR* - Pago por transferencia.`;
           await bot.sendMessage(phone, message1, {});
           await bot.sendMessage(phone, message2, {});
         });
@@ -70,21 +80,22 @@ const main = async () => {
       } catch (error) {
         console.error("Error al enviar mensajes:", error);
       }
-      res.end("Mensajes enviados");
+      res.end("Mensajes enviados.");
     })
   );
 
   provider.http?.server.get("/funciona", (req, res) => {
-    res.end("Funciona");
+    res.end("Funciona.");
   });
 
   // para cuando se desconecta
   provider.on("disconnect", () => {
-    console.log("Se desconectó el bot");
+    console.log("Se desconectó el bot.");
   });
 
   await createBot({
     flow: createFlow([
+      blackListFlow,
       flowBienvenida,
       flowRechazoRapipago,
       flowRechazoCreditoDebito,
@@ -96,10 +107,13 @@ const main = async () => {
       flowDocumentacion,
       flowPoliza,
       flowCuponera,
+      flowConfirmacionPoliza,
+      flowConfirmacionCuponera,
       flowSiniestro,
       flowDenunciaSiniestro,
       flowConsultaSiniestro,
-      flowOtraConsulta,
+      flowOtraConsultaSiniestro,
+      flowContinuacionSiniestro,
       flowGrua,
       flowCotizacionCliente,
       flowCotizarAutomotor,
@@ -107,6 +121,9 @@ const main = async () => {
       flowCotizarComercio,
       flowCotizarAp,
       flowCotizarOtrosRiesgos,
+      continuacionCotizacion,
+      flowOtraConsulta,
+      FlowContinuar,
     ]),
     database: new MemoryDB(),
     provider,
