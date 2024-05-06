@@ -3,10 +3,10 @@ import { flowNoCliente } from "./flowNoCliente";
 import { flowSiCliente } from "./flowCliente";
 
 export const flowConsulta = addKeyword(EVENTS.ACTION)
+  .addAnswer("Hola! Te comunicaste con JPMG.")
+  .addAnswer("*Elija el número de la opción que corresponda.*")
   .addAnswer([
-    "Hola! Te comunicaste con JPMG.",
     "Necesitamos saber si sos cliente.",
-    "*Elija el número de la opción que corresponda*.",
     "👉 *1* - Si.",
     "👉 *2* - No.",
     "👉 *0* - Finalizar conversación.",
