@@ -31,6 +31,7 @@ export const flowOtraConsulta = addKeyword(EVENTS.ACTION)
     "*RECUERDE*: Nuestro horario de atención es de *9* a *18*hs",
     "👉 *0* - Para cancelar",
   ])
+  .addAnswer("*IMPORTANTE:* Porfavor adjunte su consulta en un solo mensaje")
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {

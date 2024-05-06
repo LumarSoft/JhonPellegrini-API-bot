@@ -56,6 +56,9 @@ export const flowPoliza = addKeyword(EVENTS.ACTION)
     "Por favor, deje el dni del titular o patente en caso de ser un vehículo.",
     "👉 *0* - Para cancelar.",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState }) => {
@@ -78,6 +81,9 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
     "Por favor deje el dni del titular o patente en caso de ser un vehículo.",
     "👉 *0* - Para cancelar.",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState }) => {
@@ -116,7 +122,7 @@ export const flowDocumentacion = addKeyword(EVENTS.ACTION)
         return gotoFlow(blackListFlow);
       default:
         return fallBack(
-          "❌ Opción no válida, por favor seleccione una opción válida"
+          "❌ Opción no válida, por favor seleccione una opción válida. 3 para volver al menu cliente"
         );
     }
   });

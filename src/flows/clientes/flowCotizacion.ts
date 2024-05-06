@@ -33,6 +33,9 @@ export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
     "Aquí se solicitarían los datos del automotor.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
@@ -55,6 +58,9 @@ export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
 
 export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
   .addAnswer(["Aquí se solicitarían los datos del hogar", "👉 *0* - Cancelar"])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, flowDynamic, globalState }) => {
@@ -80,6 +86,9 @@ export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
     "Aquí se solicitarían los datos del comercio.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
@@ -102,6 +111,9 @@ export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
 
 export const flowCotizarAp = addKeyword(EVENTS.ACTION)
   .addAnswer(["Aquí se solicitarían los datos del ap", "👉 *0* - Cancelar"])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, flowDynamic, globalState }) => {
@@ -124,6 +136,9 @@ export const flowCotizarAp = addKeyword(EVENTS.ACTION)
 
 export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
   .addAnswer(["Aqui iría la cotización de otros riesgos", "👉 *0* - Cancelar"])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {

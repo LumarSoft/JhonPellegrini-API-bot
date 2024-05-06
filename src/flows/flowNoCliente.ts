@@ -7,6 +7,9 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
     "Por favor, deje sus datos (localidad y descripción del bien).",
     "👉 *0* - Cancelar.",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor, adjunto todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
@@ -17,7 +20,7 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
       if (response.length > 5) {
         globalState.update({ readyForBL: true });
         await flowDynamic(
-          "Datos de cotización procesados. En breve nos comunicaremos con usted, Gracias! (cod#1100)"
+          "Datos de cotización procesados. (cod#1100)"
         );
         return gotoFlow(blackListFlow);
       }

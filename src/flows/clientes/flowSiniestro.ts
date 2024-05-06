@@ -34,6 +34,9 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
     "DNI del involucrado, Numero de póliza, Fecha del siniestro, Lugar del siniestro, Descripción del siniestro.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, flowDynamic, globalState }) => {
@@ -59,6 +62,9 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
     "A continuación deje el número de siniestro que quiere consultar.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
@@ -81,6 +87,9 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
 
 export const flowOtraConsultaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer(["Aqui iria otra consulta"])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, globalState, flowDynamic }) => {

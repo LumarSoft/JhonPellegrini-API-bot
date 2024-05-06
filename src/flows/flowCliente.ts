@@ -6,6 +6,7 @@ import { flowSiniestro } from "./clientes/flowSiniestro";
 import { flowDocumentacion } from "./clientes/flowDocumentacion";
 import { flowOtraConsulta } from "./clientes/flowOtraConsulta";
 import { blackListFlow } from "./blacklistflow";
+import { IDLETIME, reset, start } from "../idleCustom";
 
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -21,6 +22,7 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
     "👉 *6* - Volver al menú principal.",
     "👉 *0* - Finalizar conversación.",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const resp = ctx.body;
     switch (resp) {
@@ -39,6 +41,7 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack(
           "❌ Opción no válida, por favor seleccione una opción válida."
         );

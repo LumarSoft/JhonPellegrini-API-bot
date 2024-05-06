@@ -6,9 +6,7 @@ const timers: Record<string, NodeJS.Timeout> = {};
 
 // Flow for handling inactivity
 const idleFlow = addKeyword(EVENTS.ACTION).addAction(async (_, { endFlow }) => {
-  return endFlow(
-    `Conversacion finalizada tras ${IDLETIME / 1000} min de inactividad`
-  );
+  return endFlow();
 });
 
 // Function to start the inactivity timer for a user
