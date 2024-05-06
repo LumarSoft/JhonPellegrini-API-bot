@@ -1,6 +1,7 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 import { blackListFlow } from "../blacklistflow";
+import { IDLETIME, reset, start } from "../../idleCustom";
 
 export const FlowContinuar = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -8,6 +9,7 @@ export const FlowContinuar = addKeyword(EVENTS.ACTION)
     "👉 *1* - Menú cliente.",
     "👉 *0* - ¡Nos vemos luego!",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
     switch (response) {
@@ -16,6 +18,7 @@ export const FlowContinuar = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack(
           "❌ Opción no válida, por favor seleccione una opción válida"
         );

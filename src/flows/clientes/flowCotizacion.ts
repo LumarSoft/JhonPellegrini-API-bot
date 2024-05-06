@@ -1,6 +1,7 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 import { blackListFlow } from "../blacklistflow";
+import { IDLETIME, reset, start } from "../../idleCustom";
 
 export const continuacionCotizacion = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -9,6 +10,7 @@ export const continuacionCotizacion = addKeyword(EVENTS.ACTION)
     "👉 *2* - Menu cliente",
     "👉 *0* - Finalizar conversacion",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
     switch (response) {
@@ -19,6 +21,7 @@ export const continuacionCotizacion = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack(
           "❌ Opción no válida, por favor seleccione una opción válida"
         );
@@ -44,7 +47,9 @@ export const flowCotizarAutomotor = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(continuacionCotizacion);
       }
-      return fallBack("❌ Debe ingresar una información válida.");
+      return fallBack(
+        "❌ Debe ingresar una información válida. 0 para cancelar"
+      );
     }
   );
 
@@ -64,7 +69,9 @@ export const flowCotizarHogar = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(continuacionCotizacion);
       }
-      return fallBack("❌ Debe ingresar una información válida.");
+      return fallBack(
+        "❌ Debe ingresar una información válida. 0 para cancelar"
+      );
     }
   );
 
@@ -87,7 +94,9 @@ export const flowCotizarComercio = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(continuacionCotizacion);
       }
-      return fallBack("❌ Debe ingresar una información válida.");
+      return fallBack(
+        "❌ Debe ingresar una información válida. 0 para cancelar"
+      );
     }
   );
 
@@ -107,7 +116,9 @@ export const flowCotizarAp = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(continuacionCotizacion);
       }
-      return fallBack("❌ Debe ingresar una información válida.");
+      return fallBack(
+        "❌ Debe ingresar una información válida. 0 para cancelar"
+      );
     }
   );
 
@@ -127,7 +138,9 @@ export const flowCotizarOtrosRiesgos = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(continuacionCotizacion);
       }
-      return fallBack("❌ Debe ingresar una información válida.");
+      return fallBack(
+        "❌ Debe ingresar una información válida. 0 para cancelar"
+      );
     }
   );
 

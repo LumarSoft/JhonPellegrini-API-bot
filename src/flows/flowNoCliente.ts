@@ -21,7 +21,9 @@ export const flowCotizacionNoCliente = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(blackListFlow);
       }
-      return fallBack("❌ Debe ingresar una localidad y descripción del bien.");
+      return fallBack(
+        "❌ Debe ingresar una localidad y descripción del bien. 0 para cancelar."
+      );
     }
   );
 
