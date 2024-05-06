@@ -45,6 +45,8 @@ import {
   flowOtraConsulta,
 } from "./flows/clientes/flowOtraConsulta";
 import { blackListFlow } from "./flows/blacklistflow";
+import { idleFlow } from "./idleCustom";
+import { inactivityFlow } from "./flows/inactivityFlow";
 
 const main = async () => {
   const provider = createProvider(BaileysProvider);
@@ -124,6 +126,8 @@ const main = async () => {
       continuacionCotizacion,
       flowOtraConsulta,
       FlowContinuar,
+      idleFlow,
+      inactivityFlow,
     ]),
     database: new MemoryDB(),
     provider,

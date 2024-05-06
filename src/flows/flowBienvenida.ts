@@ -1,12 +1,13 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowNoCliente } from "./flowNoCliente";
 import { flowSiCliente } from "./flowCliente";
+import { blacklistGeneratorFlow } from "./blacklistGenerator";
 
 export const flowConsulta = addKeyword(EVENTS.ACTION)
+  .addAnswer("Hola! Te comunicaste con JPMG.")
+  .addAnswer("*Elija el número de la opción que corresponda.*")
   .addAnswer([
-    "Hola! Te comunicaste con JPMG.",
     "Necesitamos saber si sos cliente.",
-    "*Elija el número de la opción que corresponda*.",
     "👉 *1* - Si.",
     "👉 *2* - No.",
     "👉 *0* - Finalizar conversación.",
@@ -50,6 +51,10 @@ export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
     globalState.update({ readyForBL: false });
 
     const message = ctx.body;
+
+    // if (message.length === 9) {
+    //   return gotoFlow(blacklistGeneratorFlow);
+    // }
     if (message.toLowerCase() === "ef") {
       return gotoFlow(flowRechazoRapipago);
     }

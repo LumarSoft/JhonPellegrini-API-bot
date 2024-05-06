@@ -1,6 +1,7 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 import { blackListFlow } from "../blacklistflow";
+import { IDLETIME, reset, start } from "../../idleCustom";
 
 export const flowConfirmacionPoliza = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -10,6 +11,7 @@ export const flowConfirmacionPoliza = addKeyword(EVENTS.ACTION)
     "👉 *2* - Menú cliente.",
     "👉 *0* - No, finalizar conversación.",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
     switch (response) {
@@ -20,6 +22,7 @@ export const flowConfirmacionPoliza = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack("❌ Opción no válida.");
     }
   });
@@ -32,6 +35,7 @@ export const flowConfirmacionCuponera = addKeyword(EVENTS.ACTION)
     "👉 *2* - Menú cliente.",
     "👉 *0* - No, finalizar conversación.",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
     switch (response) {
@@ -42,6 +46,7 @@ export const flowConfirmacionCuponera = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack("❌ Opción no válida.");
     }
   });
@@ -51,6 +56,9 @@ export const flowPoliza = addKeyword(EVENTS.ACTION)
     "Por favor, deje el dni del titular o patente en caso de ser un vehículo.",
     "👉 *0* - Para cancelar.",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState }) => {
@@ -62,7 +70,9 @@ export const flowPoliza = addKeyword(EVENTS.ACTION)
         globalState.update({ readyForBL: true });
         return gotoFlow(flowConfirmacionPoliza);
       }
-      return fallBack("❌ Debe ingresar un dni o patente válida");
+      return fallBack(
+        "❌ Debe ingresar un dni o patente válida. 0 para cancelar"
+      );
     }
   );
 
@@ -71,6 +81,9 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
     "Por favor deje el dni del titular o patente en caso de ser un vehículo.",
     "👉 *0* - Para cancelar.",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState }) => {
@@ -82,7 +95,9 @@ export const flowCuponera = addKeyword(EVENTS.ACTION)
         globalState.update({ readyForBL: true });
         return gotoFlow(flowConfirmacionCuponera);
       }
-      return fallBack("❌ Debe ingresar un dni o patente válida");
+      return fallBack(
+        "❌ Debe ingresar un dni o patente válida. 0 para cancelar"
+      );
     }
   );
 
@@ -107,7 +122,7 @@ export const flowDocumentacion = addKeyword(EVENTS.ACTION)
         return gotoFlow(blackListFlow);
       default:
         return fallBack(
-          "❌ Opción no válida, por favor seleccione una opción válida"
+          "❌ Opción no válida, por favor seleccione una opción válida. 3 para volver al menu cliente"
         );
     }
   });

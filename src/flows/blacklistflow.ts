@@ -1,6 +1,5 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 
-
 export const blackListFlow = addKeyword(EVENTS.ACTION).addAction(
   async (ctx, { blacklist, globalState, flowDynamic }) => {
     const number = ctx.from;

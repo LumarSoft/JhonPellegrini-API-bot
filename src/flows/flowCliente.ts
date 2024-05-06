@@ -6,6 +6,7 @@ import { flowSiniestro } from "./clientes/flowSiniestro";
 import { flowDocumentacion } from "./clientes/flowDocumentacion";
 import { flowOtraConsulta } from "./clientes/flowOtraConsulta";
 import { blackListFlow } from "./blacklistflow";
+import { IDLETIME, reset, start } from "../idleCustom";
 
 export const flowSiCliente = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -21,29 +22,28 @@ export const flowSiCliente = addKeyword(EVENTS.ACTION)
     "👉 *6* - Volver al menú principal.",
     "👉 *0* - Finalizar conversación.",
   ])
-  .addAction(
-    { capture: true },
-    async (ctx, { gotoFlow, fallBack, endFlow }) => {
-      const resp = ctx.body;
-      switch (resp) {
-        case "1":
-          return gotoFlow(flowDocumentacion);
-        case "2":
-          return gotoFlow(flowSiniestro);
-        case "3":
-          return gotoFlow(flowGrua);
-        case "4":
-          return gotoFlow(flowCotizacionCliente);
-        case "5":
-          return gotoFlow(flowOtraConsulta);
-        case "6":
-          return gotoFlow(flowConsulta);
-        case "0":
-          return gotoFlow(blackListFlow);
-        default:
-          return fallBack(
-            "❌ Opción no válida, por favor seleccione una opción válida."
-          );
-      }
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
+  .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
+    const resp = ctx.body;
+    switch (resp) {
+      case "1":
+        return gotoFlow(flowDocumentacion);
+      case "2":
+        return gotoFlow(flowSiniestro);
+      case "3":
+        return gotoFlow(flowGrua);
+      case "4":
+        return gotoFlow(flowCotizacionCliente);
+      case "5":
+        return gotoFlow(flowOtraConsulta);
+      case "6":
+        return gotoFlow(flowConsulta);
+      case "0":
+        return gotoFlow(blackListFlow);
+      default:
+        reset(ctx, gotoFlow, IDLETIME);
+        return fallBack(
+          "❌ Opción no válida, por favor seleccione una opción válida."
+        );
     }
-  );
+  });

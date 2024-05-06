@@ -1,6 +1,7 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowSiCliente } from "../flowCliente";
 import { blackListFlow } from "../blacklistflow";
+import { IDLETIME, reset, start } from "../../idleCustom";
 
 export const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer([
@@ -9,6 +10,7 @@ export const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
     "👉 *2* - Menú cliente.",
     "👉 *0* - Finalizar conversación.",
   ])
+  .addAction(async (ctx, { gotoFlow }) => start(ctx, gotoFlow, IDLETIME))
   .addAction({ capture: true }, async (ctx, { gotoFlow, fallBack }) => {
     const response = ctx.body;
     switch (response) {
@@ -19,6 +21,7 @@ export const flowContinuacionSiniestro = addKeyword(EVENTS.ACTION)
       case "0":
         return gotoFlow(blackListFlow);
       default:
+        reset(ctx, gotoFlow, IDLETIME);
         return fallBack(
           "❌ Opción no válida, por favor seleccione una opción válida"
         );
@@ -31,6 +34,9 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
     "DNI del involucrado, Numero de póliza, Fecha del siniestro, Lugar del siniestro, Descripción del siniestro.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, flowDynamic, globalState }) => {
@@ -45,7 +51,9 @@ export const flowDenunciaSiniestro = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(flowContinuacionSiniestro);
       }
-      return fallBack("❌ Debe ingresar una información valida.");
+      return fallBack(
+        "❌ Debe ingresar una información valida. 0 para cancelar"
+      );
     }
   );
 
@@ -54,6 +62,9 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
     "A continuación deje el número de siniestro que quiere consultar.",
     "👉 *0* - Cancelar",
   ])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, fallBack, globalState, flowDynamic }) => {
@@ -68,12 +79,17 @@ export const flowConsultaSiniestro = addKeyword(EVENTS.ACTION)
         );
         return gotoFlow(flowContinuacionSiniestro);
       }
-      return fallBack("❌ Debe ingresar un número de siniestro válido.");
+      return fallBack(
+        "❌ Debe ingresar un número de siniestro válido. 0 para cancelar"
+      );
     }
   );
 
 export const flowOtraConsultaSiniestro = addKeyword(EVENTS.ACTION)
   .addAnswer(["Aqui iria otra consulta"])
+  .addAnswer(
+    "*IMPORTANTE:* Porfavor adjunte todos los datos en un solo mensaje"
+  )
   .addAction(
     { capture: true },
     async (ctx, { gotoFlow, globalState, flowDynamic }) => {
