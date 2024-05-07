@@ -12,11 +12,11 @@ export const blackListFlow = addKeyword(EVENTS.ACTION).addAction(
         "Gracias por comunicarte con nosotros. A la brevedad contestaremos tu consulta."
       );
     } else {
-      flowDynamic("Gracias por comunicarte con nosotros.");
+      await flowDynamic("Gracias por comunicarte con nosotros.");
     }
 
-    // Iniciar temporizador para eliminar usuario de la blacklist después de 30 minutos
-    startTimer(number, 1800000, blacklist);
+
+    startTimer(number, 10000, blacklist);
   }
 );
 
