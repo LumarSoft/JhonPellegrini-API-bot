@@ -1,7 +1,6 @@
 import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import { flowNoCliente } from "./flowNoCliente";
 import { flowSiCliente } from "./flowCliente";
-import { blacklistGeneratorFlow } from "./blacklistGenerator";
 
 export const flowConsulta = addKeyword(EVENTS.ACTION)
   .addAnswer("Hola! Te comunicaste con JPMG.")
@@ -52,9 +51,6 @@ export const flowBienvenida = addKeyword(EVENTS.WELCOME).addAction(
 
     const message = ctx.body;
 
-    // if (message.length === 9) {
-    //   return gotoFlow(blacklistGeneratorFlow);
-    // }
     if (message.toLowerCase() === "ef") {
       return gotoFlow(flowRechazoRapipago);
     }
